@@ -1,0 +1,25 @@
+{
+    "contents" : "",
+    "created" : 1486581481379.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "62E61B9E",
+    "lastKnownWriteTime" : 8382054384118817633,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "cacheKey" : "z0m37o2d2y",
+        "caption" : "cid_smiles",
+        "contentUrl" : "grid_resource/gridviewer.html?env=&obj=cid_smiles&cache_key=z0m37o2d2y",
+        "displayedObservations" : "414",
+        "environment" : "",
+        "object" : "cid_smiles",
+        "totalObservations" : "414",
+        "variables" : "3"
+    },
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "type" : "r_dataframe"
+}

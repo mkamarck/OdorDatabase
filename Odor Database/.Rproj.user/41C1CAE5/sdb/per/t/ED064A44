@@ -1,0 +1,17 @@
+{
+    "contents" : "rm(list = ls()) # Clean your environment\n# Packages\nloadPackages <- function(package) {\n  package <- as.character(package)\n  if (require(package, character.only = TRUE, quietly = TRUE, warn.conflicts = FALSE)) {\n    cat(sprintf(\"%s is loaded correctly\\n\", package))\n  } else {\n    cat(sprintf(\"trying to install %s...\\n\", package))\n    install.packages(package)\n    stopifnot(require(package, character.only = TRUE, quietly = TRUE, warn.conflicts = FALSE))\n    cat(sprintf(\"could not install %s\\n\", package))\n  }\n}\n## Packages\nloadPackages(\"dplyr\")\nloadPackages(\"tidyr\")\nloadPackages(\"stringr\")\nloadPackages(\"pipeR\")\nloadPackages(\"readr\")\nloadPackages(\"rvest\")\nloadPackages(\"httr\")\nloadPackages(\"purrr\")\n\n## Function to get 3D molecular structure from Pubchem\n## You need CID as an input\ngetPubchem3Dconformer <- function(cid) {\n  cid <- as.character(cid)\n  url <- sprintf(\"https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/%s/record/SDF/?record_type=3d&response_type=display\", cid)\n  cat(\"Accessing...\", url, \"\\n\")\n  Sys.sleep(0.2)\n  \n  out <- tryCatch({\n    url_got <- GET(url, user_agent(\"myagent\"))\n    source_PubChem <- read_html(url_got)\n    output <- html_text(source_PubChem) %>>% str_split(\"M  END\") %>>% (.[[1]][1]) %>>% (paste0(\"\\n CID \", ., \"M  END\\n$$$$\")) #%>>% str_replace(\"\\n  -OEChem-\\\\d+3D\", \"\")\n    return(output)\n  }, \n  error = function(e) {\n    cat(\"Error:\", conditionMessage(e), \"\\n\")\n    #message(\"URL does not seem to exist\")\n    output <- \"NA\"\n    return(output)\n  }, \n  silent = TRUE\n  )\n  \n  return(out)\n}\n\n# ## Path\n# myPath <- getwd() %>>% str_split(\"code\") %>>% (.[[1]][1])\n## Put the directory to your data\nDIRECTORY = \"\"\n\n## Read your data (replace 'YOUR INPUT FILE NAME' with your input file's name)\ndata = read_csv(paste0(DIRECTORY, \"YOUR INPUT FILE NAME.csv\"))\n## If you want tsv file rather than csv, try the line below\n# data = read_tsv(paste0(DIRECTORY, \"YOUR FILE NAME.txt\"))\n\n## Get 3D comformer from Pubchem\n## Your data must have 'CID' column that has Pubchem IDs.\n## Structure information will be stored in 'MOL' column.\ndata$MOL = data$CID %>>% map_chr(~ getPubchem3Dconformer(.x))\n## Output your structure information as SDF (replace 'YOUR OUTPUT FILE NAME' with your output file's name)\nOUTPUT = data$MOL\nwrite(OUTPUT, paste0(DIRECTORY, \"YOUR OUTPUT FILE NAME.sdf\"))\n",
+    "created" : 1486060854867.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2465759508",
+    "id" : "ED064A44",
+    "lastKnownWriteTime" : 1474665987,
+    "path" : "/Volumes/mainland/Projects/TAARs/Symrise - New Odors/Odor Database/Get3DcomformerFromPubchem.R",
+    "project_path" : "Get3DcomformerFromPubchem.R",
+    "properties" : {
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "type" : "r_source"
+}

@@ -1,0 +1,25 @@
+{
+    "contents" : "",
+    "created" : 1487092870449.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "92C4D7C2",
+    "lastKnownWriteTime" : 1487092831,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "cacheKey" : "uhag7ds9xy",
+        "caption" : "odors_dataframe",
+        "contentUrl" : "grid_resource/gridviewer.html?env=&obj=odors_dataframe&cache_key=uhag7ds9xy",
+        "displayedObservations" : 414,
+        "environment" : "",
+        "object" : "odors_dataframe",
+        "totalObservations" : 414,
+        "variables" : 6
+    },
+    "relative_order" : 8,
+    "source_on_save" : false,
+    "type" : "r_dataframe"
+}

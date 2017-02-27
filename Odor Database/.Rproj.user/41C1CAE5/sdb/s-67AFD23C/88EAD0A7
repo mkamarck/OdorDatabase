@@ -1,0 +1,18 @@
+{
+    "contents" : "#import\ndf <- read.csv(\"odorDatabasefromAKOS_modified.csv\", header = TRUE, na.strings = \"\")\n#put in order of AKOS number\ndf$AKOS <- gsub(\"AKOS\", \"\", df$AKOS) \ndf.2 <- df[order(df$AKOS),]\nwrite.csv(df.2, \"odorDatabase_sorted.csv\", na = \"\")\n",
+    "created" : 1487103613948.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1450004671",
+    "id" : "88EAD0A7",
+    "lastKnownWriteTime" : 1487104752,
+    "path" : "/Volumes/mainland/Projects/TAARs/Symrise - New Odors/Odor Database/odorDatabase_improvement.R",
+    "project_path" : "odorDatabase_improvement.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 9,
+    "source_on_save" : false,
+    "type" : "r_source"
+}

@@ -1,0 +1,17 @@
+{
+    "contents" : "## Packages\nlibrary(\"dplyr\")\nlibrary(\"tidyr\")\nlibrary(\"stringr\")\nlibrary(\"pipeR\")\nlibrary(\"readr\")\nlibrary(\"rvest\")\nlibrary(\"httr\")\nlibrary(\"purrr\")\nlibrary(\"webchem\")\n\n\n\nget_density_from_csid = function(csid) {\n  if (csid == 0) {\n    out = \"NA\" #I changed this from NA without quotation marks\n  } \n  else {\n    url = sprintf(\"www.chemspider.com/Chemical-Structure.%s.html\", csid)\n    out = tryCatch({\n      url_got = GET(url, user_agent('6c2e700b-6a92-4551-9cc1-70f28c021f23'))\n      source_ChemSpi = read_html(url_got) %>>% html_text()\n      density = str_replace_all(source_ChemSpi, '\\\\\"', '') %>>% \n        str_split('Density:\\r\\n                                            \\r\\n                                                ') %>>% \n        unlist() %>>% \n        map_chr(~ str_split(.x, \"\\n\", n = 2) %>>% (.[[1]][1])) %>>% \n        (.[str_detect(., \"\\\\d+\")]) %>>%\n        str_split(\"[^0-9.]\",n = 2) %>>% (.[[1]][1]) #added in this line to just get the number of the density and not the units\n      return(density)\n    }, \n    error = function(e) {\n      cat(\"Error:\", conditionMessage(e), \"\\n\")\n      density = \"NA\"\n      return(density)\n    }, \n    silent = TRUE\n    )\n  }\n  return(out)\n}\n\n\n# Example\n# smiles = data_frame(smiles = c(\"CC1=CC(=C(C(=C1)C(C)(C)C)O)C(C)(C)C\", \n#                                \"CC=O\",\n#                                \"CC1CC(C2=C(C1(C)C)C=C(C(=C2)C(=O)C)C)(C)C\",\n#                                \"CSC\",\n#                                \"C1CCCCC1\",\n#                                \"C1CCN(CC1)C(=O)/C=C/C=C/C2=CC3=C(C=C2)OCO3\",\n#                                \"C1CCCCCCCOC(=O)CCCCCC1\",\n#                                \"C1=CC=C(C=C1)CC(C(=O)O)N\",\n#                                \"CCCC(=O)OCC(COC(=O)CCC)OC(=O)CCC\",\n#                                \"C([C@H]([C@H]([C@@H]([C@H](CO)O)O)O)O)O\",\n#                                \"C1CC(=O)OC2=CC=CC=C21\",\n#                                \"CCOC(=O)CCSCC1=CC=CO1\",\n#                                \"C([C@@H]1[C@H]([C@H](C(O1)O)O)O)O\",\n#                                \"C(I)(I)I\",\n#                                \"C1C(SCC(S1)O)O\",\n#                                \"CC1=C(C(=C(C(=C1[N+](=O)[O-])C(C)(C)C)[N+](=O)[O-])C)C(=O)C\",\n#                                \"C1=CC=C2C(=C1)C=CC(=O)O2\",\n#                                \"C1=CC=NC=C1\",\n#                                \"C1=CN=CC=N1\",\n#                                \"C1=CSC=C1\"))\n\n#read in data\ndf <- read.csv(\"/Volumes/mainland/Projects/TAARs/Symrise\\ -\\ New\\ Odors/Symrise\\ Odor\\ Database/ChemID_MW_SMILES_everything.csv\")\ndf.test <- df[1:10,]\n\n# # ChemSpider csid ID -> density\ncsid_density = df %>>% rowwise() %>>% mutate(density = get_density_from_csid(csid)) %>>% ungroup()\n\ncsid_density$CAS <- toString(csid_density$CAS)\n# # Save\n#write_csv(csid_density, \"SymriseOdors_Final.csv\")\n",
+    "created" : 1487873128990.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "4183462247",
+    "id" : "2903333F",
+    "lastKnownWriteTime" : 1488222300,
+    "path" : "/Volumes/mainland/Projects/TAARs/Symrise - New Odors/Odor Database/density_chemSpider.R",
+    "project_path" : "density_chemSpider.R",
+    "properties" : {
+    },
+    "relative_order" : 6,
+    "source_on_save" : false,
+    "type" : "r_source"
+}

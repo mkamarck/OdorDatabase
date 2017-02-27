@@ -1,0 +1,13 @@
+#python script
+#This uses the api package chemspider to maybe spit out information about chemical compounds
+
+#import the ChemSpider API package
+from chemspipy import ChemSpider
+#define the chemSpider object with my security code 
+cs = ChemSpider('6c2e700b-6a92-4551-9cc1-70f28c021f23')
+
+#example of how to get a compound info from the ChemSpider ID
+#compound = cs.get_compound(2157)
+#print(compound.smiles)
+
+#

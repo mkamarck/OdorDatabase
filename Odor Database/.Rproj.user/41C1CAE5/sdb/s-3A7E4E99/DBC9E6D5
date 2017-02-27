@@ -1,0 +1,25 @@
+{
+    "contents" : "",
+    "created" : 1486582085718.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "DBC9E6D5",
+    "lastKnownWriteTime" : 4528843824,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "cacheKey" : "cxqniupavd",
+        "caption" : "cid_smiles_density",
+        "contentUrl" : "grid_resource/gridviewer.html?env=&obj=cid_smiles_density&cache_key=cxqniupavd",
+        "displayedObservations" : "414",
+        "environment" : "",
+        "object" : "cid_smiles_density",
+        "totalObservations" : "414",
+        "variables" : "4"
+    },
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "type" : "r_dataframe"
+}
