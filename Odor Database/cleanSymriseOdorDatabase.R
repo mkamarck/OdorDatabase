@@ -19,3 +19,9 @@ df.CAS <- df[which(!is.na(df$CAS.no._1)),]
 
 # write.csv(df.noCAS, "/Users/mkamarck/Documents/chemspipy/Symrise.noCAS.csv")
 # write.csv(df.CAS, "/Users/mkamarck/Documents/chemspipy/Symrise.CAS.csv")
+
+
+
+#compare some csid stuff and check yourself #####
+#import list for csid
+df <- read.csv("/Volumes/mainland/Projects/TAARs/Symrise\ -\ New\ Odors/Symrise\ Odor\ Database/csid_compare.csv")
