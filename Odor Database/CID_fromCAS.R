@@ -78,7 +78,7 @@ df.test <- df[1:10,]
 # url = sprintf("https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/xref/RegistryID/%s/JSON", test)
 
 add_cid = df %>>% rowwise() %>>% mutate(CID = get_cid_from_CAS(CAS)) %>>% ungroup()
-#write.csv(add_cid, "/Users/mkamarck/Documents/School\ and\ Lab/Mainland\ Lab/OdorDatabase/Symrise\ Odor\ Database/add_cid.csv")
+#write.csv(add_cid, "/Volumes/mainland/Projects/TAARs/Symrise\ -\ New\ Odors/Symrise\ Odor\ Database/add_cid.csv")
 add_cid2 <- add_cid
 
 #get smiles from cid
@@ -143,6 +143,29 @@ add_smiles = add_cid %>>% rowwise() %>>% mutate(smiles_fromCID = get_smiles_from
 
 #for some reason none of these functions are working
 
-add_smiles$check= add_smiles$SMILE == add_smiles$smiles_fromCID
+#add_smiles$check= add_smiles$SMILE == add_smiles$smiles_fromCID
+add_smiles2 = add_smiles
 
-write.csv(add_smiles, "checkThisByHand.csv")
+#write.csv(add_smiles, "checkThisByHand.csv")
+#modified from yusuke's density R script
+get_cid_from_smiles = function(MY_SMILES) {
+  MY_CID = get_cid(query = MY_SMILES, from = "smiles", first = T)
+}
+#   if (!is.na(MY_CID)) {
+#     out = pc_prop(cid = MY_CID, properties = "CanonicalSMILES")
+#       
+#   } else {
+#     out = data_frame(CID = NA, CanonicalSMILES = NA)
+#   }
+#   return(out)
+# }
+
+#df.test <- add_smiles[1:10,]
+#run function
+#df.test$cid_from_csidSMILE = get_cid_from_smiles(df.test$SMILE)
+
+add_smiles$cid_from_csidSMILE = get_cid_from_smiles(add_smiles$SMILE)
+#check that cids match
+add_smiles$check= add_smiles$CID == add_smiles$cid_from_csidSMILE
+
+#write.csv(add_smiles, "/Volumes/mainland/Projects/TAARs/Symrise\ -\ New\ Odors/Symrise\ Odor\ Database/cid_checkByHand.csv")
